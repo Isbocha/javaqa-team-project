@@ -97,7 +97,8 @@ public class CreditAccountTest {
                 5_000,
                 15
         );
-        Assertions.assertEquals(-3_000, account.pay(3_000));
+        account.pay(3_000);
+        Assertions.assertEquals(-2_000, account.getBalance());
     }
 
     @Test
@@ -107,7 +108,8 @@ public class CreditAccountTest {
                 5_000,
                 15
         );
-        Assertions.assertEquals(-5_000, account.pay(6_000));
+        account.pay(6_000);
+        Assertions.assertEquals(-5_000, account.getBalance());
     }
 
     @Test
@@ -117,7 +119,8 @@ public class CreditAccountTest {
                 5_000,
                 15
         );
-        Assertions.assertEquals(1_000, account.pay(7_000));
+        account.pay(7_000);
+        Assertions.assertEquals(1_000, account.getBalance());
     }
 
     @Test
@@ -127,7 +130,8 @@ public class CreditAccountTest {
                 5_000,
                 15
         );
-        Assertions.assertEquals(1_000, account.add(-1000));
+        account.add(-1000);
+        Assertions.assertEquals(1_000, account.getBalance());
     }
 
     @Test
@@ -137,7 +141,8 @@ public class CreditAccountTest {
                 5_000,
                 15
         );
-        Assertions.assertEquals(1_000, account.add(-1));
+        account.add(-1);
+        Assertions.assertEquals(1_000, account.getBalance());
     }
 
     @Test
@@ -147,7 +152,8 @@ public class CreditAccountTest {
                 5_000,
                 15
         );
-        Assertions.assertEquals(1_000, account.add(0));
+        account.add(0);
+        Assertions.assertEquals(1_000, account.getBalance());
     }
 
     @Test
@@ -157,7 +163,8 @@ public class CreditAccountTest {
                 5_000,
                 15
         );
-        Assertions.assertEquals(5_000, account.add(4_000));
+        account.add(4_000);
+        Assertions.assertEquals(5_000, account.getBalance());
     }
 
     @Test
@@ -167,7 +174,8 @@ public class CreditAccountTest {
                 5_000,
                 15
         );
-        Assertions.assertEquals(1, account.add(1));
+        account.add(1);
+        Assertions.assertEquals(1, account.getBalance());
     }
 
     @Test
@@ -178,7 +186,8 @@ public class CreditAccountTest {
                 15
         );
         account.pay(4_500);
-        Assertions.assertEquals(-1_300, account.add(3_200));
+        account.add(3_200);
+        Assertions.assertEquals(-1_300, account.getBalance());
     }
 
     @Test
@@ -189,7 +198,8 @@ public class CreditAccountTest {
                 15
         );
         account.pay(4_500);
-        Assertions.assertEquals(2_700, account.add(7_200));
+        account.add(7_200);
+        Assertions.assertEquals(2_700, account.getBalance());
     }
 
     @Test
@@ -231,7 +241,7 @@ public class CreditAccountTest {
                 100
         );
         account.pay(1);
-        Assertions.assertEquals(100, account.yearChange());
+        Assertions.assertEquals(1, account.yearChange());
     }
 
     @Test
@@ -242,7 +252,8 @@ public class CreditAccountTest {
                 100
         );
         account.pay(4_999);
-        Assertions.assertEquals(749, account.yearChange());
+
+        Assertions.assertEquals(4999, account.yearChange());
     }
 
 }
