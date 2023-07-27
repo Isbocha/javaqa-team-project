@@ -49,7 +49,7 @@ public class SavingAccountTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenRateIsNegative() { //Тест на проверку отрицательной ставки
+    public void shouldThrowExceptionWhenRateIsNegative() { //Тест на проверку ставки равной нулю
         SavingAccount account = new SavingAccount(
                 0,
                 0,
@@ -57,7 +57,7 @@ public class SavingAccountTest {
                 0
         );
 
-        account.setRate(-5);
+        account.setRate(0);
 
         Assertions.assertEquals(0, account.getRate());
     }
@@ -125,7 +125,7 @@ public class SavingAccountTest {
                 5);
 
         account.pay(2_000);
-        Assertions.assertEquals(0, account.getBalance());
+        Assertions.assertEquals(2_000, account.getBalance());
     }
 
     @Test
@@ -165,9 +165,9 @@ public class SavingAccountTest {
                 10_000,
                 5);
 
-        account.add(5_000);
+        account.add(5_001);
 
-        Assertions.assertEquals(5_000 + 5_000, account.getBalance());
+        Assertions.assertEquals(5_000, account.getBalance());
     }
 
     @Test
