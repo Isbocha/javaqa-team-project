@@ -250,6 +250,7 @@ public class SavingAccountTest {
 
         Assertions.assertEquals(500, account.yearChange()); // 10000 (баланс) / 100 * 5 (ставка) = 500
     }
+
     @Test
     public void shouldThrowExceptionForNegativeRate() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> { //Тест на некорректное значение
@@ -260,6 +261,7 @@ public class SavingAccountTest {
                     5);
         });
     }
+
     @Test
     public void shouldThrowExceptionForAllInvalidParameters() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> { //Тест на некорректное значение
