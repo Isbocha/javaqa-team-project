@@ -7,8 +7,8 @@ package ru.netology.javaqaproject;
  * Имеет ставку - количество процентов годовых на остаток.
  */
 public class SavingAccount extends Account {
-    protected int minBalance;
-    protected int maxBalance;
+    private int minBalance;
+    private int maxBalance;
 
     /**
      * Создаёт новый объект сберегательного счёта с заданными параметрами.
