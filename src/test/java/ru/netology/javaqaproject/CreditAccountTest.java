@@ -241,7 +241,7 @@ public class CreditAccountTest {
                 100
         );
         account.pay(1);
-        Assertions.assertEquals(1, account.yearChange());
+        Assertions.assertEquals(-1, account.yearChange());
     }
 
     @Test
@@ -253,7 +253,7 @@ public class CreditAccountTest {
         );
         account.pay(4_999);
 
-        Assertions.assertEquals(4999, account.yearChange());
+        Assertions.assertEquals(-4_999, account.yearChange());
     }
 
 }
