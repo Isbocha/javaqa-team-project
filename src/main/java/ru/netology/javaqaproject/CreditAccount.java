@@ -99,8 +99,7 @@ public class CreditAccount extends Account {
     @Override
     public int yearChange() {
         if (balance < 0) {
-            int interest = Math.abs(balance) / 100 * rate;
-            return Math.min(interest, balance);
+            return getBalance() * rate / 100;
         } else {
             return 0;
         }

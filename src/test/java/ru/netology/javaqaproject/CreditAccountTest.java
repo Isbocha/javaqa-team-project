@@ -220,7 +220,7 @@ public class CreditAccountTest {
                 15
         );
         account.pay(5_000);
-        Assertions.assertEquals(750, account.yearChange());
+        Assertions.assertEquals(-750, account.yearChange());
     }
 
     @Test
