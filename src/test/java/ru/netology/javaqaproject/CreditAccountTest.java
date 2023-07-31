@@ -102,7 +102,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldPayToAllBalance() { // тест на покупку на сумму общего (достуного) лимита
+    public void shouldPayToAllBalance1() { // тест на покупку на сумму общего (достуного) лимита
         CreditAccount account = new CreditAccount(
                 1_000,
                 5_000,
@@ -111,7 +111,26 @@ public class CreditAccountTest {
         account.pay(6_000);
         Assertions.assertEquals(-5_000, account.getBalance());
     }
-
+    @Test
+    public void shouldPayToAllBalance2() { // тест на покупку на сумму общего (достуного) лимита
+        CreditAccount account = new CreditAccount(
+                1_000,
+                5_000,
+                15
+        );
+        account.pay(1);
+        Assertions.assertEquals(999, account.getBalance());
+    }
+    @Test
+    public void shouldPayToAllBalance3() { // тест на покупку на сумму общего (достуного) лимита
+        CreditAccount account = new CreditAccount(
+                0,
+                5_000,
+                15
+        );
+        account.pay(1);
+        Assertions.assertEquals(-1, account.getBalance());
+    }
     @Test
     public void shouldPayToMoreAllBalance() { // тест на покупку на сумму свыше общего (достуного) лимита
         CreditAccount account = new CreditAccount(
@@ -122,9 +141,48 @@ public class CreditAccountTest {
         account.pay(7_000);
         Assertions.assertEquals(1_000, account.getBalance());
     }
-
     @Test
-    public void shouldPayToIncorrectAmount1() { // тест на пополнение счета на некорректную сумму
+    public void shouldPayToMoreAllBalance2() { // тест на покупку на сумму свыше общего (достуного) лимита
+        CreditAccount account = new CreditAccount(
+                1_000,
+                5_000,
+                15
+        );
+        account.pay(6_001);
+        Assertions.assertEquals(1_000, account.getBalance());
+    }
+    @Test
+    public void shouldPayToIncorrectAmount1() { // тест на покупку на некорректную сумму
+        CreditAccount account = new CreditAccount(
+                1_000,
+                5_000,
+                15
+        );
+        account.pay(-7_000);
+        Assertions.assertEquals(1_000, account.getBalance());
+    }
+    @Test
+    public void shouldPayToIncorrectAmount2() { // тест на покупку на некорректную сумму
+        CreditAccount account = new CreditAccount(
+                1_000,
+                5_000,
+                15
+        );
+        account.pay(-1);
+        Assertions.assertEquals(1_000, account.getBalance());
+    }
+    @Test
+    public void shouldPayToIncorrectAmount3() { // тест на покупку на некорректную сумму
+        CreditAccount account = new CreditAccount(
+                1_000,
+                5_000,
+                15
+        );
+        account.pay(0);
+        Assertions.assertEquals(1_000, account.getBalance());
+    }
+    @Test
+    public void shouldAddToIncorrectAmount1() { // тест на пополнение счета на некорректную сумму
         CreditAccount account = new CreditAccount(
                 1_000,
                 5_000,
@@ -135,7 +193,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldPayToIncorrectAmount2() { // тест на пополнение счета на некорректную сумму
+    public void shouldAddToIncorrectAmount2() { // тест на пополнение счета на некорректную сумму
         CreditAccount account = new CreditAccount(
                 1_000,
                 5_000,
@@ -255,5 +313,26 @@ public class CreditAccountTest {
 
         Assertions.assertEquals(-4_999, account.yearChange());
     }
+    @Test
+    public void shouldCalculationOfInterest6() { // тест на расчет процентов
+        CreditAccount account = new CreditAccount(
+                0,
+                5_000,
+                75
+        );
+        account.pay(2_799);
 
+        Assertions.assertEquals(-2_099, account.yearChange());
+    }
+    @Test
+    public void shouldCalculationOfInterest7() { // тест на расчет процентов
+        CreditAccount account = new CreditAccount(
+                0,
+                5_000,
+                1
+        );
+        account.pay(799);
+
+        Assertions.assertEquals(-7, account.yearChange());
+    }
 }
