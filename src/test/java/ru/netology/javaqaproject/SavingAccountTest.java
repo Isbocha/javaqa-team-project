@@ -36,30 +36,14 @@ public class SavingAccountTest {
 
     @Test
     public void shouldThrowExceptionWhenRateIsPositive() { //Тест на проверку положительной ставки
-        SavingAccount account = new SavingAccount(
-                0,
-                0,
-                0,
-                0
-        );
-
-        account.setRate(5);
-
-        Assertions.assertEquals(5, account.getRate());
-    }
-
-    @Test
-    public void shouldThrowExceptionWhenRateIsNegative() { //Тест на проверку ставки равной нулю
-        SavingAccount account = new SavingAccount(
-                0,
-                0,
-                0,
-                0
-        );
-
-        account.setRate(0);
-
-        Assertions.assertEquals(0, account.getRate());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount account = new SavingAccount(
+                    0,
+                    0,
+                    0,
+                    0
+            );
+        });
     }
 
     @Test
@@ -124,8 +108,8 @@ public class SavingAccountTest {
                 10_000,
                 5);
 
-        account.pay(2_000);
-        Assertions.assertEquals(2_000, account.getBalance());
+        account.pay(1_500);
+        Assertions.assertEquals(1_000, account.getBalance());
     }
 
     @Test
@@ -199,28 +183,24 @@ public class SavingAccountTest {
 
     @Test
     public void shouldCalculateInterestOnNegativeBalance() { //Тест на успешный расчёт процентов при отрицательном балансе
-        SavingAccount account = new SavingAccount(
-                -2_000,
-                1_000,
-                10_000,
-                5);
-
-        account.yearChange();
-
-        Assertions.assertEquals(0, account.yearChange()); // -2000 (баланс) / 100 * 5 (ставка) = -100
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount account = new SavingAccount(
+                    -2_000,
+                    1_000,
+                    10_000,
+                    5);
+        });
     }
 
     @Test
     public void shouldCalculateInterestOnZeroBalance() { //Тест на успешный расчёт процентов при балансе равном нулю
-        SavingAccount account = new SavingAccount(
-                0,
-                1_000,
-                10_000,
-                5);
-
-        account.yearChange();
-
-        Assertions.assertEquals(0, account.yearChange()); // 0 (баланс) / 100 * 5 (ставка) = 0
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount account = new SavingAccount(
+                    1_000,
+                    500,
+                    2_000,
+                    0);
+        });
     }
 
     @Test
@@ -258,7 +238,7 @@ public class SavingAccountTest {
                     1_000,
                     500,
                     2_000,
-                    5);
+                    -5);
         });
     }
 
@@ -271,5 +251,68 @@ public class SavingAccountTest {
                     -500,
                     5);
         });
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenMaxBalanceIsLessThanMinBalance() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new SavingAccount(
+                    1_000,
+                    2_000,
+                    1_000,
+                    5);
+        });
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenInitialBalanceIsGreaterThanMaxBalance() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new SavingAccount(
+                    2_000,
+                    1_000,
+                    1_500,
+                    5);
+        });
+    }
+
+    @Test
+    public void shouldReturnZeroWhenBalanceIsZero() {
+        SavingAccount account = new SavingAccount(
+                0,
+                0,
+                5_000,
+                5);
+
+        int result = account.yearChange();
+
+        Assertions.assertEquals(0, result);
+    }
+
+    @Test
+    public void shouldReturnMinBalance() {
+        int minBalance = 1_000;
+        SavingAccount account = new SavingAccount(
+                2_000,
+                minBalance,
+                10_000,
+                5
+        );
+
+        int result = account.getMinBalance();
+        Assertions.assertEquals(minBalance, result);
+    }
+
+    @Test
+    public void shouldReturnMaxBalance() {
+        int maxBalance = 10_000;
+        SavingAccount account = new SavingAccount(
+                2_000,
+                1_000,
+                maxBalance,
+                5
+        );
+
+        int result = account.getMaxBalance();
+        Assertions.assertEquals(maxBalance, result);
     }
 }

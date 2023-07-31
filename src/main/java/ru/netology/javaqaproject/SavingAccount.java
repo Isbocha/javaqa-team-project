@@ -7,8 +7,8 @@ package ru.netology.javaqaproject;
  * Имеет ставку - количество процентов годовых на остаток.
  */
 public class SavingAccount extends Account {
-    private int minBalance;
-    private int maxBalance;
+    private final int minBalance;
+    private final int maxBalance;
 
     /**
      * Создаёт новый объект сберегательного счёта с заданными параметрами.
@@ -67,8 +67,9 @@ public class SavingAccount extends Account {
         if (amount <= 0) {
             return false;
         }
-        if ((balance - amount) >= minBalance) {
-            balance = balance - amount;
+        int potentialBalance = balance - amount;
+        if (potentialBalance >= minBalance) {
+            balance = potentialBalance;
             return true;
         } else {
             return false;
@@ -108,6 +109,7 @@ public class SavingAccount extends Account {
      *
      * @return
      */
+
     @Override
     public int yearChange() {
         if (balance == 0) {
