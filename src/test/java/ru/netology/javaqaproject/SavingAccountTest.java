@@ -104,7 +104,7 @@ public class SavingAccountTest {
 
         SavingAccount account = new SavingAccount(
                 2_500,
-                1_000,
+                500,
                 10_000,
                 5);
 
@@ -233,12 +233,23 @@ public class SavingAccountTest {
 
     @Test
     public void shouldThrowExceptionForNegativeRate() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> { //Тест на некорректное значение
-            new SavingAccount(
+        Assertions.assertThrows(IllegalArgumentException.class, () -> { //Тест на некорректное значение ставки
+            SavingAccount account = new SavingAccount(
                     1_000,
                     500,
                     2_000,
                     -5);
+
+        });
+    }
+    @Test
+    public void shouldThrowExceptionForZeroRate() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> { //Тест на некорректное значение ставки
+            SavingAccount account = new SavingAccount(
+                    1_000,
+                    500,
+                    2_000,
+                    0);
         });
     }
 
